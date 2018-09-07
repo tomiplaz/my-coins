@@ -1,0 +1,34 @@
+{
+    "coins": {
+        "BTC": 1,
+        "ETH": 2,
+        "LTC": 3
+    },
+    "history": {
+        "buy": {
+            "BTC": [
+                {
+                    "price": 1000.00,
+                    "fee": 3.00,
+                    "unit_value": 2543.62
+                }
+            ],
+            "ETH": [
+                {
+                    "price": 1000.00,
+                    "fee": 3.00,
+                    "unit_value": 112.12
+                }
+            ],
+            "LTC": [
+                {
+                    "price": 500.00,
+                    "fee": 1.5,
+                    "unit_value": 42.42
+                }
+            ]
+        }
+    },
+    "fiat": "EUR",
+    "CMC_API_KEY": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+}
