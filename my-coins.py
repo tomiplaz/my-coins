@@ -9,7 +9,9 @@ from tabulate import tabulate
 
 NAME = 'my-coins'
 TWO_PLACES = Decimal('0.01')
+FOUR_PLACES = Decimal('0.0001')
 ALL = 'all'
+COINS = 'coins'
 STATUS = 'status'
 BUY_HISTORY = 'buy_history'
 _argv1 = sys.argv[1] if len(sys.argv) > 1 else None
@@ -81,3 +83,20 @@ _table_data = [
 
 if not _argv1 or _argv1 in (ALL, STATUS):
     print('\n' + tabulate(_table_data, tablefmt='plain', floatfmt='.2f'))
+
+_table_data = []
+_table_headers = ('Symbol', 'Price', '1h%', '24h%', '7d%', '24h Volume')
+for _symbol in _coins.keys():
+    _quote_price = _api_data[_symbol]['quote'][_fiat]['price']
+    _fiat_sum += Decimal(_coins[_symbol]) * Decimal(_quote_price)
+    _table_data.append([
+        _symbol,
+        Decimal(_api_data[_symbol]['quote'][_fiat]['price']).quantize(FOUR_PLACES),
+        Decimal(_api_data[_symbol]['quote'][_fiat]['percent_change_1h']).quantize(TWO_PLACES),
+        Decimal(_api_data[_symbol]['quote'][_fiat]['percent_change_24h']).quantize(TWO_PLACES),
+        Decimal(_api_data[_symbol]['quote'][_fiat]['percent_change_7d']).quantize(TWO_PLACES),
+        Decimal(_api_data[_symbol]['quote'][_fiat]['volume_24h']).quantize(TWO_PLACES)
+    ])
+
+if _argv1 in (ALL, COINS):
+    print('\n' + tabulate(_table_data, _table_headers, tablefmt='plain', floatfmt='.2f'))
