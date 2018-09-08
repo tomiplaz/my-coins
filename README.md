@@ -1,10 +1,21 @@
-my-coins
+# my-coins
+
+## Description
 
 Displays basic information about cryptocurrencies you own.
 
-The script requires `my-coins.json` file in the same directory.
-The `my-coins.json` file should provide data related to cryptocurrencies you own. It also needs to contain your CoinMarketCap API key.
-See `my-coins.example.json` for actual formatting of the data that should be found in `my-coins.json`.
+Currently available views are:
+
+* `status`: displays current value of your fiat investment
+* `buys`: displays investment and avg. buying price for each coin
+* `coins`: displays latest market data for your coins
+
+## Requirements
+
+* CoinMarketCap Pro API key (get it for free: https://pro.coinmarketcap.com/pricing)
+* `my-coins.json` in repo's root dir (see `my-coins.example.json`)
+
+## Credits
 
 2018
 Tomislav Plazonic
