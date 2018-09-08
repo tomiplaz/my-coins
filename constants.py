@@ -1,0 +1,5 @@
+NAME = 'my-coins'
+ALL = 'all'
+STATUS = 'status'
+BUYS = 'buys'
+COINS = 'coins'
