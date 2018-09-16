@@ -4,6 +4,9 @@ from tabulate import tabulate
 
 TWO_PLACES = Decimal('0.01')
 FOUR_PLACES = Decimal('0.0001')
+RED = '\033[91m'
+GREEN = '\033[92m'
+ENDC = '\033[0m'
 
 def get_buys_total_value(key, my_data):
     _history = my_data.get('history')
@@ -11,6 +14,11 @@ def get_buys_total_value(key, my_data):
         lambda x, y: x + y,
         [Decimal(trade[key]) for coin_trades in _history['buy'].values() for trade in coin_trades]
     )
+
+def colorize(value):
+    if isinstance(value, Decimal) and value != 0:
+        return (RED if value < 0 else GREEN) + str(value) + ENDC
+    return str(value)
 
 def print_status(my_data, api_data):
     _coins = my_data.get('coins')
@@ -30,7 +38,7 @@ def print_status(my_data, api_data):
     _table_data = [
         ['Investment (Fees)', _total_price.quantize(TWO_PLACES), _total_fee.quantize(TWO_PLACES)],
         ['Present Value', _fiat_sum.quantize(TWO_PLACES)],
-        ['Difference (%)', _diff.quantize(TWO_PLACES), _diff_percent.quantize(TWO_PLACES)],
+        ['Difference (%)', colorize(_diff.quantize(TWO_PLACES)), colorize(_diff_percent.quantize(TWO_PLACES))],
     ]
 
     print('\n' + tabulate(_table_data, tablefmt='plain', floatfmt='.2f'))
@@ -75,9 +83,9 @@ def print_coins(my_data, api_data):
         _table_data.append([
             _symbol,
             Decimal(api_data[_symbol]['quote'][_fiat]['price']).quantize(FOUR_PLACES),
-            Decimal(api_data[_symbol]['quote'][_fiat]['percent_change_1h']).quantize(TWO_PLACES),
-            Decimal(api_data[_symbol]['quote'][_fiat]['percent_change_24h']).quantize(TWO_PLACES),
-            Decimal(api_data[_symbol]['quote'][_fiat]['percent_change_7d']).quantize(TWO_PLACES),
+            colorize(Decimal(api_data[_symbol]['quote'][_fiat]['percent_change_1h']).quantize(TWO_PLACES)),
+            colorize(Decimal(api_data[_symbol]['quote'][_fiat]['percent_change_24h']).quantize(TWO_PLACES)),
+            colorize(Decimal(api_data[_symbol]['quote'][_fiat]['percent_change_7d']).quantize(TWO_PLACES)),
             Decimal(api_data[_symbol]['quote'][_fiat]['volume_24h']).quantize(TWO_PLACES)
         ])
 
