@@ -1,3 +1,4 @@
+import os
 import sys
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError
@@ -5,9 +6,10 @@ from json import loads as jsonloads
 from constants import (NAME, ALL, STATUS, BUYS, COINS)
 from views import (print_status, print_buys, print_coins)
 
+_dir_path = os.path.dirname(os.path.realpath(__file__))
 _argv1 = sys.argv[1] if len(sys.argv) > 1 else None
 
-with open(NAME + '.json') as _file:
+with open(_dir_path + '/' + NAME + '.json') as _file:
     _my_data = jsonloads(_file.read())
 _coins = _my_data.get('coins')
 _fiat = _my_data.get('fiat')
