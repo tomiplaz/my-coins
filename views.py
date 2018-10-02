@@ -90,3 +90,18 @@ def print_coins(my_data, api_data):
         ])
 
     print('\n' + tabulate(_table_data, _table_headers, tablefmt='plain', floatfmt='.2f'))
+
+def print_market(my_data, api_data):
+    _fiat = my_data.get('fiat')
+
+    _table_data = [
+        ['Total Market Cap', Decimal(api_data['quote'][_fiat]['total_market_cap']).quantize(TWO_PLACES)],
+        ['Total 24h Volume', Decimal(api_data['quote'][_fiat]['total_volume_24h']).quantize(TWO_PLACES)],
+        ['BTC Dominance (%)', Decimal(api_data['btc_dominance']).quantize(TWO_PLACES)],
+        ['ETH Dominance (%)', Decimal(api_data['eth_dominance']).quantize(TWO_PLACES)],
+        #['Active Cryptocurrencies', api_data['active_cryptocurrencies']],
+        #['Active Exchanges', api_data['active_exchanges']],
+        #['Active Market Pairs', api_data['active_market_pairs']]
+    ]
+
+    print('\n' + tabulate(_table_data, tablefmt='plain', floatfmt='.2f'))

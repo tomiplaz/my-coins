@@ -1,5 +1,7 @@
+BASE_URL = 'https://pro-api.coinmarketcap.com'
 NAME = 'my-coins'
 ALL = 'all'
 STATUS = 'status'
 BUYS = 'buys'
 COINS = 'coins'
+MARKET = 'market'
