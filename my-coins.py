@@ -1,10 +1,10 @@
-import os
-import sys
+import os, sys
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError
-from json import loads as jsonloads
+from json import loads as jsonloads, dumps as jsondumps
 from constants import (BASE_URL, NAME, ALL, STATUS, BUYS, COINS, MARKET)
 from views import (print_status, print_buys, print_coins, print_market)
+from coinbase_views import (print_reduced_buys)
 
 def _get_api_data(url):
     _headers = {
@@ -14,6 +14,14 @@ def _get_api_data(url):
     _request = Request(url=url, headers=_headers)
     _response = urlopen(_request)
     return jsonloads(_response.read()).get('data')
+
+def _get_coinbase_data(url):
+    _headers = {
+        'CB-ACCESS-KEY': 'eCxVBKyfA4rJ21Bt',
+        'CB-ACCESS-SIGN': '',
+        'CB-ACCESS-TIMESTAMP': '',
+        'CONTENT-TYPE': 'application/json',
+    }
 
 _dir_path = os.path.dirname(os.path.realpath(__file__))
 _argv1 = sys.argv[1] if len(sys.argv) > 1 else None
@@ -29,6 +37,9 @@ _url =  BASE_URL + '/v1/cryptocurrency/quotes/latest' + _query_string
 _api_data = _get_api_data(_url)
 
 print(NAME, _fiat)
+
+if _argv1 in ('cb'):
+    print_reduced_buys(_my_data)
 
 if _argv1 in (ALL, MARKET):
     _market_query_string = '?convert=' + _fiat
