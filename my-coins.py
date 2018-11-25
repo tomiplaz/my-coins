@@ -38,9 +38,6 @@ _api_data = _get_api_data(_url)
 
 print(NAME, _fiat)
 
-if _argv1 in ('cb'):
-    print_reduced_buys(_my_data)
-
 if _argv1 in (ALL, MARKET):
     _market_query_string = '?convert=' + _fiat
     _market_api_url = BASE_URL + '/v1/global-metrics/quotes/latest?convert=' + _fiat
@@ -50,8 +47,8 @@ if _argv1 in (ALL, MARKET):
 if not _argv1 or _argv1 in (ALL, STATUS):
     print_status(_my_data, _api_data)
 
-if _argv1 in (ALL, BUYS):
-    print_buys(_my_data)
-
 if _argv1 in (ALL, COINS):
     print_coins(_my_data, _api_data)
+
+if _argv1 in (ALL, BUYS):
+    print_reduced_buys(_my_data)
