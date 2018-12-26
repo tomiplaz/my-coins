@@ -1,0 +1,25 @@
+{
+    "cmc_api_key": "bceda899-fe05-4817-bb18-051b26a482c4",
+    "cb_api_key": "eCxVBKyfA4rJ21Bt",
+    "cb_api_secret": "I0u0mGDoyWb7jnzDDpKK9zWr1IHJ7ldy",
+    "fiat": "EUR",
+    "coins": {
+        "BTC": 0.06756012,
+        "LTC": 17.18556012,
+        "VTC": 161.41530837,
+        "ADA": 1000,
+        "ETH": 3.562065214,
+        "WAX": 1500,
+        "ENG": 106.888,
+        "FUN": 2825.092,
+        "INT": 1030.727,
+        "MOD": 68,
+        "REQ": 485.104,
+        "SUB": 256.73,
+        "TRX": 19,
+        "UTK": 1763.1193,
+        "WABI": 233.762,
+        "NEO": 6,
+        "QLC": 500.1443
+    }
+}
