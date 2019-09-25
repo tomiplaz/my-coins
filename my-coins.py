@@ -12,8 +12,16 @@ def _get_api_data(url):
         'Accept': 'application/json'
     }
     _request = Request(url=url, headers=_headers)
-    _response = urlopen(_request)
-    return jsonloads(_response.read()).get('data')
+
+    try:
+        _response = urlopen(_request)
+        return jsonloads(_response.read()).get('data')
+    except HTTPError as e:
+        _response_body = jsonloads(e.read())
+        _error_message = _response_body['status']['error_message']
+        print(url + '\n' + str(e) + '\n' + _error_message)
+        sys.exit()
+
 
 def _get_coinbase_data(url):
     _headers = {
