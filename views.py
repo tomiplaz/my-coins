@@ -3,7 +3,6 @@ from functools import reduce
 from tabulate import tabulate
 
 TWO_PLACES = Decimal('0.01')
-FOUR_PLACES = Decimal('0.0001')
 RED = '\033[91m'
 GREEN = '\033[92m'
 ENDC = '\033[0m'
@@ -82,11 +81,11 @@ def print_coins(my_data, api_data):
     for _symbol in _coins.keys():
         _table_data.append([
             _symbol,
-            Decimal(api_data[_symbol]['quote'][_fiat]['price']).quantize(FOUR_PLACES),
-            colorize(Decimal(api_data[_symbol]['quote'][_fiat]['percent_change_1h']).quantize(TWO_PLACES)),
-            colorize(Decimal(api_data[_symbol]['quote'][_fiat]['percent_change_24h']).quantize(TWO_PLACES)),
-            colorize(Decimal(api_data[_symbol]['quote'][_fiat]['percent_change_7d']).quantize(TWO_PLACES)),
-            Decimal(api_data[_symbol]['quote'][_fiat]['volume_24h']).quantize(TWO_PLACES)
+            _get_decimal_value(api_data[_symbol]['quote'][_fiat]['price']),
+            colorize(_get_decimal_value(api_data[_symbol]['quote'][_fiat]['percent_change_1h'])),
+            colorize(_get_decimal_value(api_data[_symbol]['quote'][_fiat]['percent_change_24h'])),
+            colorize(_get_decimal_value(api_data[_symbol]['quote'][_fiat]['percent_change_7d'])),
+            _get_decimal_value(api_data[_symbol]['quote'][_fiat]['volume_24h'])
         ])
 
     print('\n' + tabulate(_table_data, _table_headers, tablefmt='plain', floatfmt='.2f'))
@@ -105,3 +104,6 @@ def print_market(my_data, api_data):
     ]
 
     print('\n' + tabulate(_table_data, tablefmt='plain', floatfmt='.2f'))
+
+def _get_decimal_value(value):
+    return '' if value is None else Decimal(value).quantize(TWO_PLACES)
